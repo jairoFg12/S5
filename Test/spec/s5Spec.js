@@ -85,8 +85,7 @@ describe('s5 js', function(){
             })
         });
 
-        describe('String ToAESEncrypt', function(){
-           
+        describe('String ToAESEncrypt', function(){          
 
             describe('Should be error when AES is not reference', function(){
                 var originalCryptoJs = CryptoJS;
@@ -111,15 +110,152 @@ describe('s5 js', function(){
 
                 afterEach(function(){
                     CryptoJSEmulate = originalCryptoJs;
-                    console.log(originalToAESEncrypt("prueba"));
                 });
             });
-            
-            // it('asdsa', function(){
-                
-            // })
+
+            it('Should be return a diferent encrypted text', function(){
+                var validation = String.toAESEncrypt('SincoSoft');
+                var validation2 = 'Sincosoft'.toAESEncrypt();
+                //var expectedValue = 'NvKxV9lZ9+9wutrYmEetxG1xqHo4dyAo7NjZ+iOojkHXosYOfu4QR7Lg+Bp4TU0AMpQwh3ZNtEZwvqoJXOCaTOOBFJzugMBMtrISVfQUd0mOuW+vfc7PBGMlWAoL3+KXukG/vL60NEZb/0xSfo7mkw==4';
+                expect(validation).not.toEqual(validation2);
+            });
         });        
     });
 
+    describe('Opciones JSON', function(){
+        describe('JSON TryParse', function(){
+            it('Should be return an object', function(){
+                var object = JSON.tryParse('{"Propiedad": "valor"}');
+                expect(object).toEqual({"Propiedad": "valor"});        
+            });   
+            
+            it('Should be return an error when the object is not a JSON', function(){
+                var object = JSON.tryParse('{Propiedad: valor}');
+                expect(object).toEqual({messageError: "Unexpected token P in JSON at position 1"});
+            });
+        });
+    });
+
+    describe('Manejo de errores', function(){
+        describe('Sinco Initialization Error ', function(){
+            it('Should be return an error', function(){
+                var objeto = { propiedad: 1};
+                
+                var validation = function(){
+                    if (objeto.propiedad !== 0) {
+                        throw new SincoInitializationError('El valor esperado era 0');
+                    }
+                }
+
+                expect(validation).toThrowError(SincoInitializationError,"El valor esperado era 0");    
+            });
+           
+        });
+    });
     
+    describe('Validadores Window', function(){
+        describe('Window IsIE', function(){
+            it('Should be return true when the explorer is IE', function(){
+                window.isIE = true;
+                expect(window['isIE']).toBe(true);
+            });
+
+            it('Should be return false when is not IE', function(){
+                window.isIE = false;
+                expect(window['isIE']).toBe(false);
+            });
+        });
+
+        describe('Window VersionIE', function(){
+            /**
+             * window.versionIE;
+                //Console: 11
+
+                window['versionIE'];
+                //Console: 11
+            */
+        });
+
+        describe('Window IsMobile', function(){
+            /**
+             * window.isMobile;
+                //Console: false
+
+                window['isMobile'];
+                //Console: false
+             */
+        });
+    });
+
+    describe('Funcionalidades con objetos', function(){
+        describe('Sinco Extend', function(){
+
+        });
+
+        describe('Sinco Map', function(){
+
+        });
+
+        describe('Sinco Filter', function(){
+
+        });
+
+        describe('Sinco Reduce', function(){
+
+        });
+
+        describe('Sinco Utilities Encrypt', function(){
+
+        });
+
+        describe('Sinco Utilities ParseXml', function(){
+
+        });
+
+        describe('Sinco QueryString', function(){
+
+        });
+
+        describe('Sinco FileToBase64', function(){
+
+        });
+    });
+
+    describe('Funcionalidades con objetos HTML', function(){
+        describe('Sinco Script', function(){
+
+        });
+
+        describe('Sinco Get', function(){
+
+        });
+
+        describe('Sinco CreateElem', function(){
+
+        });
+
+        describe('Sinco Attribute', function(){
+
+        });
+
+        describe('Sinco Insert', function(){
+
+        });
+
+        describe('Sinco Delete', function(){
+
+        });
+
+        describe('Sinco Styles', function(){
+
+        });
+
+        describe('Sinco Utilities AddStyles', function(){
+
+        });
+
+        describe('Sinco AddEvent', function(){
+            
+        });
+    });
 });
